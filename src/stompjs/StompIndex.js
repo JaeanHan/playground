@@ -2,6 +2,9 @@ import {Fragment} from "react";
 import {Client} from "@stomp/stompjs";
 import {atom, useAtom} from "jotai";
 
+// websocket은 시작 하자마자 connection + subscribe 세팅해서 pub까지 하는거고
+// stompjs는 버튼으로 connection + subscribe 그리고 publish까지
+
 // websocket
 
 const ws = new WebSocket("ws://localhost:8080/ws");
