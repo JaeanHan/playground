@@ -23,7 +23,7 @@ heart-beat:4000,4000
     ws.send(cMsg);
 
     const sMsg = `SUBSCRIBE
-id:sub-testId
+id:sub-webSocket
 destination:/sub/channel
 
 \x00`;
@@ -35,7 +35,7 @@ destination:/sub/channel
 };
 
 ws.onmessage = (event) => {
-    console.log('message arrived')
+    console.log('message arrived WebSocket')
     console.log(event.data);
 };
 
@@ -57,7 +57,7 @@ const publishTest = async (client) => {
 
     if(client.active) {
         const res = await client.publish({
-            destination: '/pub/hello',
+            destination: '/agent/test',
             body: JSON.stringify({ type: 'message', sender: 'stomp', channelId: 'hihi', data: 'testData' })
         });
         console.log('pTest', res);
@@ -72,7 +72,7 @@ const StompIndex = () => {
     // stompjs
     
     const client = new Client({
-        brokerURL: 'ws://localhost:8080/ws',
+        brokerURL: 'ws://localhost:8080/agent',
         connectHeaders: {
             login: 'user',
             passcode: 'password',
@@ -87,8 +87,8 @@ const StompIndex = () => {
 
     client.onConnect = function (frame) {
         console.log('connected')
-        client.subscribe('/sub/channel', (message) => {
-            console.log('this is from pub', message);
+        client.subscribe('/topic/test', (message) => {
+            console.log('this is from pub Stomp', message);
             const payload = JSON.parse(message.body);
             updateMessage(payload.data);
         });
