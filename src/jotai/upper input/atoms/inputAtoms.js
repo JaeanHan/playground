@@ -18,3 +18,30 @@ export const derivedLogAtom = atom(
         console.log(get(logAtom));
     });
 
+export const atomFamilyMapAtom = atom({});
+
+export const setAtomFamilyMapAtom = atom(get => get(atomFamilyMapAtom), (get, set, newIndex) => {
+    console.log("setAtomFamilyMapAtom newIndex", newIndex);
+
+    const current = get(atomFamilyMapAtom);
+
+    const index = newIndex >= 5 ? 'banana' : 'melon';
+
+    if(!(index in current))
+        current[index] = atom(newIndex);
+
+    set(current[index], newIndex);
+
+    console.log(`current[${index}]`, get(current[index]));
+
+    console.log(get(get(atomFamilyMapAtom)[index]));
+    return get(get(atomFamilyMapAtom)[index]);
+});
+
+const getTestAtom = atom('found me!');
+
+const getTestTestAtom = atom(get => get(getTestAtom));
+
+export const getTestTestTestAtom = atom(get => {
+    return get(getTestTestAtom);
+})

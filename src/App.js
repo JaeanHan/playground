@@ -5,9 +5,9 @@ import StompIndex from "./stompjs/StompIndex";
 
 function App() {
   return (
-      // <JotaiIndex></JotaiIndex>
+      <JotaiIndex></JotaiIndex>
 
-      <StompIndex></StompIndex>
+      // <StompIndex></StompIndex>
 
     // <div className="App">
     //   <header className="App-header">
